@@ -1,25 +1,14 @@
 #!/usr/bin/env python3
-''' Desription: Import async_comprehension from the previous file and write a
-                measure_runtime coroutine that will execute async_comprehension
-                four times in parallel using asyncio.gather.
-
-                measure_runtime should measure the total runtime and return it.
-                Notice that the total runtime is roughly 10 seconds, explain
-                it to yourself.
+'''Task 1's module.
 '''
-
-from asyncio import gather
-from time import time
-
-async_comprehension = __import__('1-async_comprehension').async_comprehension
+from typing import List
+from importlib import import_module as using
 
 
-async def measure_runtime() -> float:
-    ''' Measure the runtime of async_comprehension executed 4 times in
-        parallel. '''
-    first_time = time()
-    await gather(async_comprehension(), async_comprehension(),
-                 async_comprehension(), async_comprehension())
-    next_time = time()
+async_generator = using('0-async_generator').async_generator
 
-    return next_time - first_time
+
+async def async_comprehension() -> List[float]:
+    '''Creates a list of 10 numbers from a 10-number generator.
+    '''
+    return [num async for num in async_generator()]
